@@ -17,7 +17,7 @@
                     echo "
                     <div class='product'>
                         <span>Tên sản phẩm: ".$rows2['ten']."</span>
-                        <span>Mô tả: ".$rows2['mota']."</span>
+                        <img src='".$rows2['mota']."' width='100px' height='100px'>
                         <span>Giá: ".$rows2['gia']."</span>
                     </div>
                     ";
