@@ -1,38 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
+    <body>
+        <?php
+        include_once "db_module.php";
+        $link = null;
+        taoKetNoi($link);
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+        $result = chayTruyVanTraVeDL($link, "select * from tbl_danhmuc");
+        while($rows=mysqli_fetch_assoc($result)){
+            echo "
+            <div class='category'>
+                <h1>".$rows['ten']."</h1>
+                ";
+                $result2 = chayTruyVanTraVeDL($link, "
+                select * from tbl_sanpham where id_dm=".$rows['id']);
+                while($rows2=mysqli_fetch_assoc($result2)){
+                    echo "
+                    <div class='product'>
+                        <span>Tên sản phẩm: ".$rows2['ten']."</span>
+                        <span>Mô tả: ".$rows2['mota']."</span>
+                        <span>Giá: ".$rows2['gia']."</span>
+                    </div>
+                    ";
+                }
+            echo"
+            </div>
+            ";
+        }
 
-    <!-- boostrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+        giaiPhongBoNho($link, $result);
 
-    <!-- jquery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-</head>
-
-<body>
-    <div class="container">
-        <!-- <div class="col">
-            <?php include_once "menu.php" ?>
-        </div>
-
-        <div class="col">
-            <?php include_once "content.php" ?>
-        </div> -->
-
-        <form action="process.php" method="get">
-            <input class="form-control" style="width: 50%; display: inline-block;margin: 10px;" type="text" name="q" id="" placeholder="Name">
-            <input class="btn btn-success" type="submit" value="Submit">
-            <input class="btn btn-danger" type="reset" value="Cancel">
-        </form>
-    </div>
-
-</body>
-
+        ?>
+    </body>
 </html>
